@@ -6,7 +6,9 @@ for( var i=0;i<updatebtns.length;i++){
         console.log("productid:",productid,"action",action)
         console.log("USER",user)
         if (user=="AnonymousUser"){
-            console.log("the user not authenticated")
+            console.log("the user not authenticated");
+
+            addCokkieItem(productid,action);
         }
         else{
             updateUserOrder(productid,action)        
@@ -30,6 +32,31 @@ function updateUserOrder(productid, action) {
     location.reload();
      
   }
-
+function addCokkieItem(productid, action) {
+  if(action=='add')
+  {
+    if(cart[productid]==undefined)
+    {
+      cart[productid]={'quantity':1};
+    }
+    else
+    {
+      cart[productid]['quantity']+=1;
+    }
+  }
+  
+  if(action=="remove")
+  {
+    cart[productid]['quantity']-=1; 
+    if(cart[productid]['quantity']==0)
+    {
+      console.log("remove item")
+      delete cart[productid];
+    }
+  }
+    console.log("cart:",cart);
+    document.cookie='cart='+JSON.stringify(cart)+';domain=;path=/'
+    location.reload();
+  }
 
 

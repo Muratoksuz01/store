@@ -85,7 +85,7 @@ console.log(total)
     if (shipping == 'False'&&user!="AnonymousUser") {
         //document.getElementById('shipping-info').innerHTML = '';
        // document.getElementById("form-wrapper").classList.add("hidden")
-        document.getElementById('payment-info').classList.remove('hidden');
+        //document.getElementById('payment-info').classList.remove('hidden');
     
     }
 
@@ -126,7 +126,7 @@ console.log(total)
         if(user=='AnonymousUser'){
             userFormData.name = form.name.value
             userFormData.email = form.email.value
-            userFormData.total = form.total.value
+            //userFormData.total = form.total.value
         }
         console.log(userFormData.name)
         console.log(shippinginfo.address)
@@ -135,7 +135,7 @@ console.log(total)
             "method":"post",
             headers:{
                 "Content-type":"application/json",
-                "X-CSRFToken":csrftoken,
+                "X-CSRFToken":csrftoken
             },
             body: JSON.stringify({ 'form': userFormData ,'shipping': shippinginfo }),
         })
@@ -143,16 +143,25 @@ console.log(total)
         .then((data)=>{
             console.log("success",data)
             alert("tranaction complete")
+            cart={}
+           document.cookie="cart="+JSON.stringify(cart)+";domain=;path=/"
             window.location.href="{% url 'store' %}"
         })
 
 
     }
+
+
+
+   
 </script>
 
 
    
 {% endblock content %}
+
+
+
 
 
 
